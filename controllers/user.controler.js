@@ -43,12 +43,10 @@ const user = {
     register : async (req, res, next) => {
         try {
             const { username, email, password, firstName, lastName } = req.body;
-    
             // Validate required fields
             if (!username || !email || !password) {
                 throw new Error('Missing required fields');
             }
-    
             const user = new userModel({
                 username,
                 email,
@@ -56,7 +54,6 @@ const user = {
                 firstName,
                 lastName
             });
-    
             await user.save();
             // Generate JWT
             const token = jwt.sign(
@@ -64,7 +61,6 @@ const user = {
                 process.env.JWT_SECRET,
                 { expiresIn: '24h' }
             );
-    
             // Set cookie
             res.cookie('token', token, {
                 httpOnly: true,
