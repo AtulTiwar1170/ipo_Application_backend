@@ -3,8 +3,8 @@ const router = express.Router()
 const userControler = require('../controllers/user.controler')
 
 
-// User registration
-const userValidationRules = () => [
+
+router.post('/api/users/register', [
     check('username')
         .notEmpty()
         .withMessage('Username is required')
@@ -23,17 +23,17 @@ const userValidationRules = () => [
     check('lastName')
         .notEmpty()
         .withMessage('Last name is required'),
-];
-router.post('/api/users/register', userValidationRules(), userControler.register);
+], userControler.register);
 
 // User login
-const loginValidationRules = () => [
+router.post('/api/users/login',[
     check('username')
         .notEmpty()
         .withMessage('Username is required'),
     check('password')
         .notEmpty()
         .withMessage('Password is required'),
-];
-router.post('/api/users/login',loginValidationRules(), userControler.login);
+], userControler.login);
+
+
 module.exports = router;

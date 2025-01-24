@@ -1,19 +1,24 @@
 
-const IPOInfo = require('../models/ipo.model')
-module.exports.createIPO = async (req, res, next) => {
-    try {
-        if (!req.user.staff_status) {
-            throw new Error('Unauthorized');
-        }
+const IpoInfo = require('../models/ipo.model')
+module.exports.createIPO = async (req, res) => {
+    // Validate the request
+    try
+    {
+        const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-        const ipoInfo = new IPOInfo(req.body);
-        await ipoInfo.save();
+    // Create a new IPO info document
+    const ipoInfo = new IpoInfo(req.body);
 
-        res.status(201).json({
-            success: true,
-            message: 'IPO information added successfully'
-        });
-    } catch (error) {
+    // Save the document to the database
+    ipoInfo.save()
+        .then(() => res.status(201).json({ message: 'IPO information saved successfully' }))
+        .catch(err => res.status(500).json({ error: err.message }));
+    }
+
+catch (error) {
         next(error);
     }
-}
+};
