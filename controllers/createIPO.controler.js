@@ -1,5 +1,6 @@
-
+const { validationResult } = require('express-validator');
 const IpoInfo = require('../models/ipo.model')
+
 module.exports.createIPO = async (req, res) => {
     // Validate the request
     try

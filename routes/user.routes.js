@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const userControler = require('../controllers/user.controler')
-
+const { check } = require('express-validator');
 
 
 router.post('/api/users/register', [

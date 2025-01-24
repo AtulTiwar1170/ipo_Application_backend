@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const createIPOControler = require('../controllers/createIPO.controler')
 const auth = require('../middleware/auth')
+const { body } = require('express-validator');
 
 router.post('/api/ipo', auth,
     [
