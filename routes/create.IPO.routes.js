@@ -22,6 +22,6 @@ router.post('/api/ipo', auth,
         body('current_return').isString().optional(),
         body('rhp').isString().optional(),
         body('drhp').isString().optional()
-    ], createIPOControler);
+    ], createIPOControler.createIPO);
 
 module.exports = router;

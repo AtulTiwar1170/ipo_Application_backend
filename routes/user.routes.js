@@ -4,7 +4,7 @@ const userControler = require('../controllers/user.controler')
 const { check } = require('express-validator');
 
 
-router.post('/api/users/register', [
+router.post('/register', [
     check('username')
         .notEmpty()
         .withMessage('Username is required')
@@ -26,7 +26,7 @@ router.post('/api/users/register', [
 ], userControler.register);
 
 // User login
-router.post('/api/users/login',[
+router.post('/login',[
     check('username')
         .notEmpty()
         .withMessage('Username is required'),

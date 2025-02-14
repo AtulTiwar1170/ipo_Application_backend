@@ -2,9 +2,18 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
-const cookieParser = require('cookie-parser');
-
 const app = express();
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+app.use(cors(
+    {
+        origin: 'http://localhost:3000',
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    }
+));
+
 
 // Middleware
 app.use(express.json());
@@ -22,17 +31,14 @@ const publicRoutes = require('./routes/public.routes')
 // Use routes
 app.use('/', publicRoutes)
 app.use('/create', createIPORoutes)
-app.use('/user', userRoutes)
+app.use('/api/user', userRoutes)
 
 // Error handler
-const errorHandler = (err, req, res, next) => {
+app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(err.status || 500).json({
-        success: false,
-        message: err.message || 'Internal Server Error'
-    });
-};
-app.use(errorHandler);
+    res.status(500).send('Something broke!');
+});
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
