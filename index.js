@@ -30,7 +30,7 @@ const publicRoutes = require('./routes/public.routes')
 
 // Use routes
 app.use('/', publicRoutes)
-app.use('/create', createIPORoutes)
+app.use('/api/create', createIPORoutes)
 app.use('/api/user', userRoutes)
 
 // Error handler

@@ -4,7 +4,7 @@ const createIPOControler = require('../controllers/createIPO.controler')
 const auth = require('../middleware/auth')
 const { body } = require('express-validator');
 
-router.post('/api/ipo', auth,
+router.post('/ipo', auth,
     [
         body('company_logo_path').isString().optional(),
         body('company_name').isString().notEmpty().withMessage('Company name is required'),
